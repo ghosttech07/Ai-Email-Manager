@@ -63,7 +63,9 @@ export const db = { mode: 'memory' };
 export async function connectStore() {
   const make = config.mongoUri ? mongoCollection : memoryCollection;
   if (config.mongoUri) {
-    await mongoose.connect(config.mongoUri, { serverSelectionTimeoutMS: 8000 });
+    // A connection string without a database name would land in MongoDB's default "test" database.
+    const named = /\.[a-z]+(:\d+)?\/[^/?]+/i.test(config.mongoUri.replace(/^mongodb(\+srv)?:\/\//, ''));
+    await mongoose.connect(config.mongoUri, { serverSelectionTimeoutMS: 8000, ...(named ? {} : { dbName: 'handoff' }) });
     db.mode = 'mongodb';
   }
   db.users = make('User', ['email', 'clientToken']);
