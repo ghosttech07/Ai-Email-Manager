@@ -1,0 +1,20 @@
+# One-click deploy on Render: New > Blueprint > pick this repository.
+services:
+  - type: web
+    name: handoff
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false # paste a MongoDB Atlas connection string; leave empty for in-memory demo mode
+      - key: GEMINI_API_KEY
+        sync: false # free key from aistudio.google.com/apikey; without any AI key the rules engine runs
+      - key: ANTHROPIC_API_KEY
+        sync: false # optional alternative to Gemini
