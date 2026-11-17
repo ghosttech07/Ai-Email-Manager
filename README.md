@@ -58,7 +58,7 @@ Keyboard: <kbd>↑</kbd> <kbd>↓</kbd> or <kbd>J</kbd> <kbd>K</kbd> move throug
 
 <table>
   <tr>
-    <td width="62%"><img src="docs/screenshots/overview.jpg" alt="Overview dashboard" /></td>
+    <td width="62%"><img src="docs/screenshots/overview.png" alt="Overview dashboard" /></td>
     <td><img src="docs/screenshots/inbox-phone.jpg" alt="Inbox on a phone" /></td>
   </tr>
   <tr>
