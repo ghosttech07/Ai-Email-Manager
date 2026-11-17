@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useSession } from '../state.jsx';
 
 const SAMPLE = [
@@ -11,6 +12,7 @@ export function Welcome() {
   const { signIn } = useSession();
   const [mode, setMode] = useState('register');
   const [form, setForm] = useState({ name: '', email: '', password: '', clientName: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const [busy, setBusy] = useState(null);
   const [error, setError] = useState(null);
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
@@ -63,7 +65,12 @@ export function Welcome() {
               <label className="field"><span>Work email</span><input className="input" type="email" required autoComplete="email" value={form.email} onChange={set('email')} /></label>
               <label className="field">
                 <span>Password</span>
-                <input className="input" type="password" required minLength={mode === 'register' ? 8 : undefined} autoComplete={mode === 'register' ? 'new-password' : 'current-password'} value={form.password} onChange={set('password')} aria-describedby={mode === 'register' ? 'pw-hint' : undefined} />
+                <span className="pw-wrap">
+                  <input className="input" type={showPassword ? 'text' : 'password'} required minLength={mode === 'register' ? 8 : undefined} autoComplete={mode === 'register' ? 'new-password' : 'current-password'} value={form.password} onChange={set('password')} aria-describedby={mode === 'register' ? 'pw-hint' : undefined} />
+                  <button type="button" className="icon-btn pw-toggle" onClick={() => setShowPassword((v) => !v)} aria-label={showPassword ? 'Hide password' : 'Show password'} aria-pressed={showPassword} title={showPassword ? 'Hide password' : 'Show password'}>
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </span>
                 {mode === 'register' && <span id="pw-hint" className="small muted" style={{ fontWeight: 400 }}>At least 8 characters.</span>}
               </label>
               {mode === 'register' && (

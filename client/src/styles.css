@@ -87,6 +87,9 @@ textarea.input { height: auto; padding: 10px 12px; line-height: 22px; resize: ve
 .input:hover { border-color: var(--control); }
 .input:focus { outline: none; border-color: var(--assistant); box-shadow: 0 0 0 3px var(--assistant-bg); }
 .input::placeholder { color: #6b6f73; }
+.pw-wrap { position: relative; display: block; }
+.pw-wrap .input { padding-right: 46px; }
+.pw-toggle { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); }
 .form-error { color: #9c1c21; font-size: 14px; }
 
 /* ---------- owner tag: the one status mark ---------- */
