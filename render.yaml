@@ -8,6 +8,8 @@ services:
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
+      - key: CLIENT_TIMEZONE
+        value: Asia/Kolkata # times written in emails are read in this zone; Render itself runs on UTC
       - key: NODE_VERSION
         value: 22
       - key: JWT_SECRET

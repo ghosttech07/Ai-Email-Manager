@@ -202,7 +202,12 @@ function transcript(thread) {
     .join('\n\n---\n\n');
 }
 
-const context = (ctx) => `Client: ${ctx.clientName}. Assistant: ${ctx.assistantName}. Now: ${(ctx.now ?? new Date()).toString()}.`;
+const context = (ctx) => {
+  const now = ctx.now ?? new Date();
+  const offsetMin = -now.getTimezoneOffset();
+  const offset = `${offsetMin >= 0 ? '+' : '-'}${String(Math.floor(Math.abs(offsetMin) / 60)).padStart(2, '0')}:${String(Math.abs(offsetMin) % 60).padStart(2, '0')}`;
+  return `Client: ${ctx.clientName}. Assistant: ${ctx.assistantName}. Now: ${now.toString()}. Times written in emails are the client's local time: give every event "at" with the offset ${offset}.`;
+};
 
 /** Run `viaModel`; on any failure log it and use the rule-based result instead. */
 async function withFallback(label, viaModel, viaRules) {

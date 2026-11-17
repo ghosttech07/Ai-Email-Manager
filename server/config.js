@@ -1,6 +1,11 @@
 import 'dotenv/config';
 import { randomBytes } from 'node:crypto';
 
+// Times written in emails ("Thursday at 10:00 AM") are the client's local time. Hosts such as
+// Render run on UTC, which would shift every extracted meeting, so the server works in the
+// client's time zone. Set CLIENT_TIMEZONE to an IANA name to change it.
+process.env.TZ = process.env.CLIENT_TIMEZONE || 'Asia/Kolkata';
+
 export const config = {
   port: Number(process.env.PORT) || 4000,
   mongoUri: process.env.MONGODB_URI || '',
